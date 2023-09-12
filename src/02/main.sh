@@ -1,18 +1,13 @@
 #!/bin/bash
 
-echo "HOSTNAME = `hostname`"
-echo "TIMEZONE = `timedatectl show --property=Timezone --value` UTC `date +%:z`"
-echo "USER = `whoami`"
-echo "OS = `lsb_release -ds`"
-echo "DATE = `date "+%d %B %Y %H:%M:%S"`"
-echo "UPTIME = `uptime -p | sed 's/up//'`"
-echo "UPTIME_SEC = `awk '{print $1}' /proc/uptime`"
-echo "IP = `hostname -I | awk '{print $1}'`"
-echo "MASK = $(ifconfig | grep -oP 'inet [\d.]+  netmask \K[\d.]+' | awk 'NR==2 {print}')"
-echo "GATEWAY = $(ip route | grep default | awk '{print $3}')"
-echo "RAM_TOTAL = `free -m | grep "Mem" | awk '{printf("%.3f GB", $2/1000)}'`"
-echo "RAM_USED = `free -m | grep "Mem" | awk '{printf("%.3f GB", $3/1000)}'`"
-echo "RAM_FREE = `free -m | grep "Mem" | awk '{printf("%.3f GB", $4/1000)}'`"
-echo "SPACE_ROOT = `df / | awk 'NR==2 {printf("%.2f MB", $2/1024)}'`"
-echo "SPACE_ROOT_USED = `df / | awk 'NR==2 {printf("%.2f MB", $3/1024)}'`"
-echo "SPACE_ROOT_FREE = `df / | awk 'NR==2 {printf("%.2f MB", $4/1024)}'`"
+source print.sh
+
+print_info
+
+echo "Do you want to save information in file? (Y/n)"
+read answer
+
+if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
+  date=$(date "+%d_%m_%y_%H_%M_%S.status")
+  print_info >> "$date"
+fi
