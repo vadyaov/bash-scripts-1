@@ -1,8 +1,7 @@
 #!/bin/bash
 
 function print_info() {
-out=$(cat <<EOF
-HOSTNAME = `hostname`
+  out="HOSTNAME = `hostname`
 TIMEZONE = `timedatectl show --property=Timezone --value` UTC `date +%:z`
 USER = `whoami`
 OS = `lsb_release -ds`
@@ -17,8 +16,7 @@ RAM_USED = `free -m | grep "Mem" | awk '{printf("%.3f GB", $3/1000)}'`
 RAM_FREE = `free -m | grep "Mem" | awk '{printf("%.3f GB", $4/1000)}'`
 SPACE_ROOT = `df / | awk 'NR==2 {printf("%.2f MB", $2/1024)}'`
 SPACE_ROOT_USED = `df / | awk 'NR==2 {printf("%.2f MB", $3/1024)}'`
-SPACE_ROOT_FREE = `df / | awk 'NR==2 {printf("%.2f MB", $4/1024)}'`
-EOF
-)
+SPACE_ROOT_FREE = `df / | awk 'NR==2 {printf("%.2f MB", $4/1024)}'`"
+
 echo "$out"
 }

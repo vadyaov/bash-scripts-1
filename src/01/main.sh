@@ -5,5 +5,5 @@ if [[ $# -ne 1 ]]; then
 elif [[ "$1" =~ ^[a-zA-Z]+$ ]]; then
   echo $1
 else
-  echo "Argument must be text"
+  echo "Argument must be text, but contains numbers"
 fi
